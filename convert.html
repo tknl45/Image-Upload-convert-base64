@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Image Upload convert base64</h1>
+<p><input id="inp" type="file" accept="image/*" onchange="readFile(event)" style="display: none"></p>
+<p><label for="inp" style="cursor: pointer;">Upload Image</label></p>
+
+<p id="size"></p>
+<p id="b64"></p>
+<img id="img" height="350">
+
+<script>
+function readFile() {
+  
+  if (!this.files || !this.files[0]) return;
+    
+  const FR = new FileReader();
+    
+  FR.addEventListener("load", function(evt) {
+    document.querySelector("#img").src         = evt.target.result;
+    document.querySelector("#b64").textContent = evt.target.result;
+  }); 
+    
+  FR.readAsDataURL(this.files[0]);
+
+  var size = this.files[0].size;
+  document.querySelector("#size").textContent = size / 1024 / 1024 + " MB";
+  
+}
+
+document.querySelector("#inp").addEventListener("change", readFile);
+</script>
+</body>
+</html>
